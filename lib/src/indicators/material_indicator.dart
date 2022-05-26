@@ -141,11 +141,11 @@ class _CustomPainter extends BoxPainter {
 
     Offset backOffset = Offset(offset.dx, offset.dy);
     final Rect rectBg = backOffset & backSize;
-    // final Paint paintBg = Paint();
+    final Paint paintBg = Paint();
 
-    paint.color = indicatorBackground;
-    paint.style = paintingStyle;
-    paint.strokeWidth = 3;
+    paintBg.color = indicatorBackground;
+    paintBg.style = paintingStyle;
+    paintBg.strokeWidth = 3;
     canvas.drawRRect(
         RRect.fromRectAndCorners(
           rectBg,
@@ -154,7 +154,7 @@ class _CustomPainter extends BoxPainter {
           // topLeft: Radius.circular(topLeftRadius),
           // topRight: Radius.circular(topRightRadius),
         ),
-        paint);
+        paintBg);
   }
 }
 
