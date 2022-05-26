@@ -119,7 +119,7 @@ class _CustomPainter extends BoxPainter {
 
     if (tabPosition == TabPosition.left) {
       mysize = Size(height, configuration.size!.height);
-      myoffset = Offset(offset.dx + strokeWidth, offset.dy);
+      myoffset = Offset(offset.dx, offset.dy);
     }
 
     Size backSize = Size(configuration.size!.width, configuration.size!.height);
