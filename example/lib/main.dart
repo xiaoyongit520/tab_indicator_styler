@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       topLeftRadius: 8,
                       topRightRadius: 8,
                       horizontalPadding: 50,
-                      tabPosition: TabPosition.bottom,
+                      tabPosition: TabPosition.left,
                     ),
                   ),
                 ),

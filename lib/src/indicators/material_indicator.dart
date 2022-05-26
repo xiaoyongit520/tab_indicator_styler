@@ -114,6 +114,13 @@ class _CustomPainter extends BoxPainter {
               : 0),
     );
 
+    if(tabPosition == TabPosition.left){
+      mysize = Size(height, configuration.size!.height);
+      myoffset = Offset(
+          offset.dx,
+          offset.dy);
+    }
+
     final Rect rect = myoffset & mysize;
     final Paint paint = Paint();
     paint.color = color;
@@ -131,4 +138,4 @@ class _CustomPainter extends BoxPainter {
   }
 }
 
-enum TabPosition { top, bottom }
+enum TabPosition { top, bottom,left }
