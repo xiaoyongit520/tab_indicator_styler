@@ -32,6 +32,8 @@ class MaterialIndicator extends Decoration {
   /// StrokeWidth, used for [PaintingStyle.stroke], default set to 2
   final double strokeWidth;
 
+  final Color indicatorBackground;
+
   MaterialIndicator({
     this.height = 4,
     this.tabPosition = TabPosition.bottom,
@@ -40,10 +42,12 @@ class MaterialIndicator extends Decoration {
     this.bottomRightRadius = 0,
     this.bottomLeftRadius = 0,
     this.color = Colors.black,
+    this.indicatorBackground = Colors.transparent,
     this.horizontalPadding = 0,
     this.paintingStyle = PaintingStyle.fill,
     this.strokeWidth = 2,
   });
+
   @override
   _CustomPainter createBoxPainter([VoidCallback? onChanged]) {
     return new _CustomPainter(
@@ -52,6 +56,7 @@ class MaterialIndicator extends Decoration {
       bottomLeftRadius: bottomLeftRadius,
       bottomRightRadius: bottomRightRadius,
       color: color,
+      indicatorBackground: indicatorBackground,
       height: height,
       horizontalPadding: horizontalPadding,
       tabPosition: tabPosition,
@@ -72,6 +77,7 @@ class _CustomPainter extends BoxPainter {
   final double bottomRightRadius;
   final double bottomLeftRadius;
   final Color color;
+  final Color indicatorBackground;
   final double horizontalPadding;
   final double strokeWidth;
   final PaintingStyle paintingStyle;
@@ -86,6 +92,7 @@ class _CustomPainter extends BoxPainter {
     required this.bottomRightRadius,
     required this.bottomLeftRadius,
     required this.color,
+    required this.indicatorBackground,
     required this.horizontalPadding,
     required this.paintingStyle,
     required this.strokeWidth,
@@ -103,22 +110,16 @@ class _CustomPainter extends BoxPainter {
 
     //offset is the position from where the decoration should be drawn.
     //configuration.size tells us about the height and width of the tab.
-    Size mysize =
-        Size(configuration.size!.width - (horizontalPadding * 2), height);
+    Size mysize = Size(configuration.size!.width - (horizontalPadding * 2), height);
 
     Offset myoffset = Offset(
       offset.dx + (horizontalPadding),
-      offset.dy +
-          (tabPosition == TabPosition.bottom
-              ? configuration.size!.height - height
-              : 0),
+      offset.dy + (tabPosition == TabPosition.bottom ? configuration.size!.height - height : 0),
     );
 
-    if(tabPosition == TabPosition.left){
+    if (tabPosition == TabPosition.left) {
       mysize = Size(height, configuration.size!.height);
-      myoffset = Offset(
-          offset.dx,
-          offset.dy);
+      myoffset = Offset(offset.dx, offset.dy);
     }
 
     final Rect rect = myoffset & mysize;
@@ -135,7 +136,26 @@ class _CustomPainter extends BoxPainter {
           topRight: Radius.circular(topRightRadius),
         ),
         paint);
+
+    Size backSize = Size(configuration.size!.width, configuration.size!.height);
+
+    Offset backOffset = Offset(offset.dx, offset.dy);
+    final Rect rectBg = backOffset & backSize;
+    // final Paint paintBg = Paint();
+
+    paint.color = indicatorBackground;
+    paint.style = paintingStyle;
+    paint.strokeWidth = 3;
+    canvas.drawRRect(
+        RRect.fromRectAndCorners(
+          rectBg,
+          // bottomRight: Radius.circular(bottomRightRadius),
+          // bottomLeft: Radius.circular(bottomLeftRadius),
+          // topLeft: Radius.circular(topLeftRadius),
+          // topRight: Radius.circular(topRightRadius),
+        ),
+        paint);
   }
 }
 
-enum TabPosition { top, bottom,left }
+enum TabPosition { top, bottom, left }
