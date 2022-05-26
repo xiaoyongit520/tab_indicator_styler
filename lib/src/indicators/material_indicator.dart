@@ -122,21 +122,6 @@ class _CustomPainter extends BoxPainter {
       myoffset = Offset(offset.dx + strokeWidth, offset.dy);
     }
 
-    final Rect rect = myoffset & mysize;
-    final Paint paint = Paint();
-    paint.color = color;
-    paint.style = paintingStyle;
-    paint.strokeWidth = strokeWidth;
-    canvas.drawRRect(
-        RRect.fromRectAndCorners(
-          rect,
-          bottomRight: Radius.circular(bottomRightRadius),
-          bottomLeft: Radius.circular(bottomLeftRadius),
-          topLeft: Radius.circular(topLeftRadius),
-          topRight: Radius.circular(topRightRadius),
-        ),
-        paint);
-
     Size backSize = Size(configuration.size!.width, configuration.size!.height);
 
     Offset backOffset = Offset(offset.dx, offset.dy);
@@ -155,6 +140,23 @@ class _CustomPainter extends BoxPainter {
           // topRight: Radius.circular(topRightRadius),
         ),
         paintBg);
+
+    final Rect rect = myoffset & mysize;
+    final Paint paint = Paint();
+    paint.color = color;
+    paint.style = paintingStyle;
+    paint.strokeWidth = strokeWidth;
+    canvas.drawRRect(
+        RRect.fromRectAndCorners(
+          rect,
+          bottomRight: Radius.circular(bottomRightRadius),
+          bottomLeft: Radius.circular(bottomLeftRadius),
+          topLeft: Radius.circular(topLeftRadius),
+          topRight: Radius.circular(topRightRadius),
+        ),
+        paint);
+
+
   }
 }
 
